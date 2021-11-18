@@ -57,3 +57,4 @@ spring:
 
 ## Enlaces de interes:
 * Ejemplo completo de la configuración de la seguridad: https://www.codejava.net/frameworks/spring-boot/oauth2-login-with-github-example
+* Tutoria de Spring para configurarlo: https://spring.io/guides/tutorials/spring-boot-oauth2/
