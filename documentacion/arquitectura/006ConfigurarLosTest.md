@@ -34,3 +34,8 @@ restTemplate.getForObject<String>(
     url = URI.create("http://localhost:${port}/core/version")
 )
 ```
+
+## Recursos
+
+* **TEST SPRING** https://www.baeldung.com/oauth-api-testing-with-spring-mvc
+* **TEST AUTENTIFICACIÓN** https://www.baeldung.com/spring-boot-security-autoconfiguration
