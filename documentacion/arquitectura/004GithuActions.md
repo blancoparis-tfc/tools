@@ -27,9 +27,12 @@ Lo que tenemos que hacer es configurar los secretos, en este caso el de github
 
 En este caso solo tenemos que configuramos la acción de github **.github/workflows/build.yml**
 
+
+
+
 > Esta acción lo unico que hace es, llamar a gradle para que cargue los datos en sonar desde gradle.
 
-````yaml
+```yaml
 
 name: Build
 on:
@@ -69,7 +72,13 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: ./gradlew build sonarqube --info
-````
+```
+Establecemos los permisos de gradlew, para que tenga permisos de ejecución.
+
+```shell
+git update-index --chmod=+x gradlew
+```
+
 
 
 
