@@ -55,6 +55,30 @@ spring:
            - read:user
 ```
 
+## Configurar url no securizadas
+
+Para esto tenemos que activar la configuración de seguridad.
+
+En este caso la URL, que vamos a securizar es **/core/version**
+
+```kotlin
+@SpringBootApplication
+class ToolsApplication	: WebSecurityConfigurerAdapter() {
+	@Throws(Exception::class)
+	override fun configure(http: HttpSecurity) {
+		http
+			.authorizeRequests(
+				Customizer { a ->
+					a
+						.antMatchers("/core/version").permitAll() // Las rutas publica
+						.anyRequest().authenticated()  // El resto se espera autenticación.
+				}
+			).oauth2Login() // Establece el login
+	}
+}
+```
+> Por defecto es http.oauth2Login()
+
 ## Enlaces de interes:
 * Ejemplo completo de la configuración de la seguridad: https://www.codejava.net/frameworks/spring-boot/oauth2-login-with-github-example
 * Tutoria de Spring para configurarlo: https://spring.io/guides/tutorials/spring-boot-oauth2/
