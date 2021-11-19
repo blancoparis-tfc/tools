@@ -4,6 +4,7 @@ plugins {
 	id("org.springframework.boot") version "2.5.6"
 	id("io.spring.dependency-management") version "1.0.11.RELEASE"
 	id ("jacoco")
+	id( "org.sonarqube" ) version "3.3"
 	kotlin("jvm") version "1.5.31"
 	kotlin("plugin.spring") version "1.5.31"
 }
@@ -41,13 +42,33 @@ tasks.withType<KotlinCompile> {
 	}
 }
 
-tasks.withType<Test> {
+tasks.test {
 	useJUnitPlatform()
+
 }
 
 tasks.jacocoTestReport {
 	reports {
 		xml.required.set(true)
 		csv.required.set(true)
+	}
+}
+
+
+// Cuando se ejecute sonarqube  se lanzara test antes de sonarqube.
+tasks.named("sonarqube").configure {
+	dependsOn("test")
+}
+
+// Cuando termine la de test, generaremos el report de cobertura
+tasks.named("test").configure{
+	finalizedBy("jacocoTestReport")
+}
+
+sonarqube{
+	properties {
+		property ("sonar.projectKey", "blancoparis-tfc_tools")
+		property ("sonar.organization", "blancoparis-tfc")
+		property ("sonar.host.url", "https://sonarcloud.io")
 	}
 }
