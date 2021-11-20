@@ -39,6 +39,8 @@ restTemplate.getForObject<String>(
 
 Podemos hacer un test que llame a la pila sin arrancar un tomcat, usando el mock de mvc
 
+>Levanta el contexto, pero no el servidor.
+
 1. Configuramos el **MockMvc** usaremos la siguiente anotación (**@AutoConfigureMockMvc**)
 ```kotlin
 @SpringBootTest
@@ -64,6 +66,69 @@ class TestingWebApplicationTest {
 }
 
 ```
+
+## Capa de test
+
+En este caso solo se prueba la capa de vista, cualquier cosa que utilize fuera de la capa web,  se lo tenemos que mock.
+
+La diferencia con el anterior es la anotación **@WebMvcTest**
+
+```kotlin
+package com.dbp.tools
+
+import org.hamcrest.Matchers.containsString
+import org.junit.jupiter.api.Test
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
+import org.springframework.test.web.servlet.MockMvc
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+@WebMvcTest
+class CapaWebTest {
+
+    @Autowired
+    lateinit var mockMvc: MockMvc;
+
+    @Test
+    fun retornoDefectoMensaje(){
+        this.mockMvc
+            .perform(get("/core/version"))
+            .andDo(                         print())
+            .andExpect(  status().isOk)  // Miramo si es OK
+            .andExpect(content().string(containsString("1.0.0"))) // Miramos si el resultado es correcto
+    }
+}
+```
+
+## Conceptos de los test
+
+### Mock de servicio
+
+Se utilizara mokito:
+
+1. Como lo inyectamos al contexto:
+
+```kotlin
+@MockBean
+	private GreetingService service;
+```
+
+2. Mockeamos la salida de un servicio
+
+```kotlin
+		when(service.greet()).thenReturn("Hello, Mock");
+```
+
+### DirtiesContext
+
+Es una anotación que lo que hace es limpiar el contexto entre pruebas. 
+
+- Si es a nivel de clase el sistema lo hace en cada uno de los metodos.
+- Si se pone en el metodo lo hace a nivel de metodo.
+
+Para mas información esta el siguiente guia: https://www.baeldung.com/spring-dirtiescontext 
 
 ## Recursos
 
