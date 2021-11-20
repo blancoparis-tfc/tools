@@ -29,3 +29,7 @@ class ToolsApplication	: WebSecurityConfigurerAdapter() {
 			logger.info("Cargamos la autenticacion en memoria para el entorno de test")
 
 ```
+
+## Recursos
+
+https://www.baeldung.com/kotlin/logging
