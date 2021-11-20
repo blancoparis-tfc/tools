@@ -72,3 +72,18 @@ sonarqube{
 		property ("sonar.host.url", "https://sonarcloud.io")
 	}
 }
+
+tasks.register<org.springframework.boot.gradle.tasks.run.BootRun>("bootRunDev") {
+	group = "application"
+	classpath = sourceSets["main"].runtimeClasspath
+	mainClass.set("com.dbp.tools.ToolsApplicationKt")
+	systemProperty ("spring.profiles.active", "dev")
+}
+
+tasks.register<org.springframework.boot.gradle.tasks.run.BootRun>("bootRunProd") {
+	group = "application"
+	classpath = sourceSets["main"].runtimeClasspath
+	mainClass.set("com.dbp.tools.ToolsApplicationKt")
+	systemProperty ("spring.profiles.active", "prod")
+}
+
