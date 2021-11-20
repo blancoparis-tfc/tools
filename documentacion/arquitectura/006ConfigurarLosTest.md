@@ -101,7 +101,61 @@ class CapaWebTest {
     }
 }
 ```
+## Preparar la securización.
 
+### Configurar la seguridad de los test.
+
+La idea, es que utilicemos el perfil, para activar el registro en memoria.
+
+1. Configuramos el aplication el resource de memoria.
+```kotlin
+    @Autowired
+    lateinit var env: Environment;
+    
+    @Throws(java.lang.Exception::class)
+    override fun configure(auth: AuthenticationManagerBuilder) {
+    
+        if(env.acceptsProfiles(Profiles.of("test"))) {
+            val encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder()
+            auth
+                .inMemoryAuthentication()
+                .withUser("user")
+                .password(encoder.encode("password"))
+                .roles("USER")
+                .and()
+                .withUser("admin")
+                .password(encoder.encode("admin"))
+                .roles("USER", "ADMIN")
+        }
+    }
+```
+> Hay que poner el Encoder.
+2. En la invocación de los test **@ActiveProfiles**.
+```kotlin
+@ActiveProfiles("test")
+class CapaWebTest {
+    ///
+}
+```
+> Tenemos que activar los porfiles.
+
+### Como pasar la autorización.
+
+1. En el caso de **TestRestTemplate**
+```kotlin
+    restTemplate.withBasicAuth("user","password")
+```
+> Esto pasa la autorizaciónd del basic.
+2. En el caso de **MockMvc**
+```kotlin
+        this.mockMvc
+            .perform(get("/core/user")
+                .with(
+                    SecurityMockMvcRequestPostProcessors
+                    .httpBasic("user", "password"))
+            )
+```
+ 
 ## Conceptos de los test
 
 ### Mock de servicio

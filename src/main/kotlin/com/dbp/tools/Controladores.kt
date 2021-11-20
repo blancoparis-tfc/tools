@@ -15,6 +15,6 @@ class CoreController{
     fun getVersion()="1.0.0"
 
     @GetMapping("/user")
-    fun user(@AuthenticationPrincipal principal: OAuth2User)    =  principal.getAttribute<Object>("name")
+    fun user()    =  "user mock"//principal.getAttribute<Object>("name")
 
 }
