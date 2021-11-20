@@ -23,5 +23,6 @@ class ToolsApplication	: WebSecurityConfigurerAdapter() {
 }
 
 fun main(args: Array<String>) {
+	System.out.println("Original")
 	runApplication<ToolsApplication>(*args)
 }
