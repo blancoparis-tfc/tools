@@ -3,10 +3,10 @@ spring:
     # Hay que revisar esta condicion
     open-in-view: true
   datasource:
-    driverClassName: org.h2.Driver
-    url: jdbc:h2:file:C:/temp/test
-    username: sa
-    password:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/dev
+    username: dev
+    password: 123456
 
 
 ---
