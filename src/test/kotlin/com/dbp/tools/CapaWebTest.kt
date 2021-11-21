@@ -25,7 +25,7 @@ class CapaWebTest {
 
     @Test
     fun retornoDefectoMensaje(){
-        Mockito.`when`(config.version).thenReturn("1.0.7");
+        Mockito.`when`(config.version).thenReturn("1.0.0");
         this.mockMvc
             .perform(get("/core/version"))
             .andDo(                         print())
