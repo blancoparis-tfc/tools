@@ -2,8 +2,11 @@ package com.dbp.tools
 
 import org.hamcrest.Matchers.containsString
 import org.junit.jupiter.api.Test
+import org.mockito.Mockito
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
+import org.springframework.boot.test.mock.mockito.MockBean
+
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.web.servlet.MockMvc
@@ -17,16 +20,17 @@ class CapaWebTest {
 
     @Autowired
     lateinit var mockMvc: MockMvc
-
+    @MockBean
     lateinit var config: Config
 
     @Test
     fun retornoDefectoMensaje(){
+        Mockito.`when`(config.version).thenReturn("1.0.0");
         this.mockMvc
             .perform(get("/core/version"))
             .andDo(                         print())
             .andExpect(status().isOk)  // Miramo si es OK
-            .andExpect(content().string(containsString(config.version))) // Miramos si el resultado es correcto
+            .andExpect(content().string(containsString("1.0.0"))) // Miramos si el resultado es correcto
     }
 
     @Test

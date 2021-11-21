@@ -156,6 +156,24 @@ class CapaWebTest {
             )
 ```
  
+## Correcion del error que sale cuando sale un test
+
+El problema radica en que no sabe donde esta el fichero de configuración de los logs
+
+1. Creamos el fichero. (**resources/logging-test.properties**)
+```properties
+ .level=INFO
+```
+2. Lo configuramos en el build de gradle
+
+```kotlin
+tasks.test {
+	useJUnitPlatform()
+	// Correcion de la consola (https://github.com/junit-team/junit5/issues/1774)
+	systemProperty ("java.util.logging.config.file", "${project.buildDir}/resources/test/logging-test.properties")
+}
+```
+
 ## Conceptos de los test
 
 ### Mock de servicio
