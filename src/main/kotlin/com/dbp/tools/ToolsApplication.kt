@@ -22,13 +22,11 @@ class ToolsApplication()	: WebSecurityConfigurerAdapter() {
 	@Autowired
 	lateinit var env: Environment;
 
-	@Autowired
-	lateinit var datasource: DatasourceConf;
+
 
 
 	@Throws(java.lang.Exception::class)
 	override fun configure(auth: AuthenticationManagerBuilder) {
-		logger.info("Datasource {}",datasource.url)
 		if(env.acceptsProfiles(Profiles.of("test"))) {
 			logger.info("Cargamos la autenticacion en memoria para el entorno de test")
 			val encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder()

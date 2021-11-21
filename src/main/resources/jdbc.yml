@@ -1,17 +1,27 @@
-database:
-  url: "url"
-  username: "user"
-  password: "pass"
+spring:
+  jpa:
+    # Hay que revisar esta condicion
+    open-in-view: true
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: 123456
+
+
 ---
 
 spring:
   config:
     activate:
       on-profile: test
-database:
-  url: "urltest"
-  username: "user"
-  password: "pass"
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+  datasource:
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:file:C:/temp/test
+    username: sa
+    password:
 
 ---
 
@@ -19,10 +29,11 @@ spring:
   config:
     activate:
       on-profile: dev
-database:
-  url: "urldev"
-  username: "user"
-  password: "pass"
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/dev
+    username: dev
+    password: 123456
 
 ---
 
@@ -30,8 +41,9 @@ spring:
   config:
     activate:
       on-profile: prod
-database:
-  url: "urlprod"
-  username: "user"
-  password: "pass"
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/tools
+    username: postgres
+    password: 123456
 
