@@ -49,6 +49,7 @@ tasks.test {
 	useJUnitPlatform()
 	// Correcion de la consola (https://github.com/junit-team/junit5/issues/1774)
 	systemProperty ("java.util.logging.config.file", "${project.buildDir}/resources/test/logging-test.properties")
+	//ignoreFailures = true
 }
 
 tasks.jacocoTestReport {
