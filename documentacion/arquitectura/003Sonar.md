@@ -69,3 +69,28 @@ En este caso tenemos que ponerlo,
 systemProp.sonar.login=<token>
 ```
 
+## Configurar el tema de las propiedades
+
+
+1. En este caso se tiene que establecer la propiedades **ignoreFailures**.
+
+Tenemos que añadir la siguiente logica 
+
+```kotlin
+    ignoreFailures = (project.hasProperty("testIgnoreFailures") && project.property("testIgnoreFailures")=="true")
+```
+
+```kotlin
+tasks.test {
+    useJUnitPlatform()
+    // Correcion de la consola (https://github.com/junit-team/junit5/issues/1774)
+    systemProperty ("java.util.logging.config.file", "${project.buildDir}/resources/test/logging-test.properties")
+    ignoreFailures = (project.hasProperty("testIgnoreFailures") && project.property("testIgnoreFailures")=="true")
+}
+```
+
+2. Uso
+* **Propiedad** -PtestIgnoreFailures=true
+* **gradle.properties**  testIgnoreFailures=false
+
+> Pordefecto mantiene el comportamiento, de gradle.

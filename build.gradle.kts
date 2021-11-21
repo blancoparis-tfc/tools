@@ -45,13 +45,12 @@ tasks.withType<KotlinCompile> {
 	}
 }
 
-val testIgnoreFailures: String by project
 
 tasks.test {
 	useJUnitPlatform()
 	// Correcion de la consola (https://github.com/junit-team/junit5/issues/1774)
 	systemProperty ("java.util.logging.config.file", "${project.buildDir}/resources/test/logging-test.properties")
-	ignoreFailures = (testIgnoreFailures!=null && testIgnoreFailures=="true")
+	ignoreFailures = (project.hasProperty("testIgnoreFailures") && project.property("testIgnoreFailures")=="true")
 }
 
 tasks.jacocoTestReport {
