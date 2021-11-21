@@ -207,3 +207,4 @@ Para mas información esta el siguiente guia: https://www.baeldung.com/spring-di
 * **GUIA TEST SPRING** https://spring.io/guides/gs/testing-web/
 * **TEST SPRING** https://www.baeldung.com/oauth-api-testing-with-spring-mvc
 * **TEST AUTENTIFICACIÓN** https://www.baeldung.com/spring-boot-security-autoconfiguration
+* **Mokito kotlin** https://www.baeldung.com/kotlin/mockito
