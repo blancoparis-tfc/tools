@@ -1,5 +1,37 @@
 database:
-  url: url
-  username: user
-  password: pass
+  url: "url"
+  username: "user"
+  password: "pass"
+---
+
+spring:
+  config:
+    activate:
+      on-profile: test
+database:
+  url: "urltest"
+  username: "user"
+  password: "pass"
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: dev
+database:
+  url: "urldev"
+  username: "user"
+  password: "pass"
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: prod
+database:
+  url: "urlprod"
+  username: "user"
+  password: "pass"
 

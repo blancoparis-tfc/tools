@@ -3,6 +3,7 @@ package com.dbp.tools
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.context.properties.EnableConfigurationProperties
 
 import org.springframework.boot.runApplication
 import org.springframework.core.env.Environment
@@ -14,16 +15,20 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.factory.PasswordEncoderFactories
 
 @SpringBootApplication()
-class ToolsApplication	: WebSecurityConfigurerAdapter() {
+class ToolsApplication()	: WebSecurityConfigurerAdapter() {
 
 	private val logger = LoggerFactory.getLogger(javaClass)
 
 	@Autowired
 	lateinit var env: Environment;
 
+	@Autowired
+	lateinit var datasource: DatasourceConf;
+
+
 	@Throws(java.lang.Exception::class)
 	override fun configure(auth: AuthenticationManagerBuilder) {
-
+		logger.info("Datasource {}",datasource.url)
 		if(env.acceptsProfiles(Profiles.of("test"))) {
 			logger.info("Cargamos la autenticacion en memoria para el entorno de test")
 			val encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder()
