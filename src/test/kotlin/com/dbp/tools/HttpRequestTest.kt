@@ -20,13 +20,16 @@ class HttpRequestTest {
 
     @Autowired lateinit var restTemplate: TestRestTemplate
 
+    @Autowired
+    lateinit var config: Config
+
     @Test
     fun version(){
         assertThat(
             restTemplate.withBasicAuth("user","password").getForObject<String>(
                 url = URI.create("http://localhost:${port}/core/version")
                 )
-        ).contains("1.0.0")
+        ).contains(config.version)
     }
 
     @Test

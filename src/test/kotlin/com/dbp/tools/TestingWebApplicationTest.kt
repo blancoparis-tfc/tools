@@ -26,6 +26,9 @@ class TestingWebApplicationTest {
     @Autowired
     lateinit var mockMvc: MockMvc;
 
+    @Autowired
+    lateinit var config: Config
+
     @Test
     fun retornoDefectoMensaje(){
         this.mockMvc
@@ -33,7 +36,7 @@ class TestingWebApplicationTest {
                     )
             .andDo(print())
             .andExpect(status().isOk)  // Miramo si es OK
-            .andExpect(content().string(containsString("1.0.0"))) // Miramos si el resultado es correcto
+            .andExpect(content().string(containsString(config.version))) // Miramos si el resultado es correcto
     }
     @Test
     fun restornDefectoMensajeBasic(){
