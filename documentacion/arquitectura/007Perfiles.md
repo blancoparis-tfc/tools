@@ -81,6 +81,60 @@ logging:
     root: INFO
 ```
 
+### Correcion de los perfiles por que esta deprecado.
+
+Spring nos da un warning, para evitarlo tenemos que cambiar:
+```yaml
+spring:
+  profiles: prod
+```
+
+por este otro
+```yaml
+spring:
+  config:
+    activate:
+      on-profile: prod
+```
+
+El fichero queda tal que asi.
+
+```yaml
+#  config:
+#    import:
+#      classpath: jdbc.yml
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: test
+logging:
+  level:
+    root: WARN
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: dev
+logging:
+  level:
+    root: DEBUG
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: prod
+logging:
+  level:
+    root: INFO
+```
+
 ### Poner un componete en spring
 
 En principio, si se utiliza la anotación **@Profile**

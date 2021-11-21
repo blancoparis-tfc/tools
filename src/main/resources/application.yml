@@ -11,11 +11,16 @@ spring:
             scope:
               - user:email
               - read:user
+#  config:
+#    import:
+#      classpath: jdbc.yml
 
 ---
 
 spring:
-  profiles: test
+  config:
+    activate:
+      on-profile: test
 logging:
   level:
     root: WARN
@@ -23,7 +28,9 @@ logging:
 ---
 
 spring:
-  profiles: dev
+  config:
+    activate:
+      on-profile: dev
 logging:
   level:
     root: DEBUG
@@ -31,7 +38,9 @@ logging:
 ---
 
 spring:
-  profiles: prod
+  config:
+    activate:
+      on-profile: prod
 logging:
   level:
     root: INFO
